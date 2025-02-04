@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Sheets with PapaParse</title>
+    <script src="papaparse.min.js"></script>
+</head>
+<body>
+    <h1>Google Sheets Data</h1>
+    <button onclick="readGoogleSheet()">Load Data</button>
+    <pre id="output"></pre>
+
+    <script>
+        function readGoogleSheet() {
+            const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRphglATOXBWXf_TLw4PS2RPCP_ANKB-NbLh4EwsQ2_SnS9pEgaP7ZFzO2-eORG9U2LVaJAYFlXxM2o/pub?output=csv";
+
+            Papa.parse(csvUrl, {
+                download: true,
+                header: true,
+                complete: function(results) {
+                    document.getElementById("output").textContent = JSON.stringify(results.data, null, 2);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
